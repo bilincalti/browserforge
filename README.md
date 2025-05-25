@@ -51,6 +51,7 @@ It is a reimplementation of [Apify's fingerprint-suite](https://github.com/apify
 ```
 pip install browserforge[all]
 ```
+
 ## Usage
 
 ## Generating Headers
@@ -480,32 +481,32 @@ fingerprint.generate(browser='chrome', os='windows')
 > [!WARNING]
 > Fingerprint injection in BrowserForge is deprecated. Please check out [Camoufox] instead.
 
-BrowserForge is fully compatible with your existing Playwright and Pyppeteer code. You only have to change your context/page initialization.
+BrowserForge is fully compatible with your existing patchright and Pyppeteer code. You only have to change your context/page initialization.
 
-### Playwright
+### patchright
 
 #### Async API:
 
 ```py
 # Import the AsyncNewContext injector
-from browserforge.injectors.playwright import AsyncNewContext
+from browserforge.injectors.patchright import AsyncNewContext
 
 async def main():
-    async with async_playwright() as playwright:
-        browser = await playwright.chromium.launch()
+    async with async_patchright() as patchright:
+        browser = await patchright.chromium.launch()
         # Create a new async context with the injected fingerprint
         context = await AsyncNewContext(browser, fingerprint=fingerprint)
         page = await context.new_page()
         ...
 ```
 
-Replace `await browser.new_context` with `await AsyncNewContext` in your existing Playwright code.
+Replace `await browser.new_context` with `await AsyncNewContext` in your existing patchright code.
 
 <details>
 <summary>Parameters for AsyncNewContext</summary>
 
 ```
-Injects an async_api Playwright context with a Fingerprint.
+Injects an async_api patchright context with a Fingerprint.
 
 Parameters:
     browser (Browser): The browser to create the context in
@@ -520,24 +521,24 @@ Parameters:
 
 ```py
 # Import the NewContext injector
-from browserforge.injectors.playwright import NewContext
+from browserforge.injectors.patchright import NewContext
 
 def main():
-    with sync_playwright() as playwright:
-        browser = playwright.chromium.launch()
+    with sync_patchright() as patchright:
+        browser = patchright.chromium.launch()
         # Create a new context with the injected fingerprint
         context = NewContext(browser, fingerprint=fingerprint)
         page = context.new_page()
         ...
 ```
 
-Replace `browser.new_context` with `NewContext` in your existing Playwright code.
+Replace `browser.new_context` with `NewContext` in your existing patchright code.
 
 <details>
 <summary>Parameters for NewContext</summary>
 
 ```
-Injects a sync_api Playwright context with a Fingerprint.
+Injects a sync_api patchright context with a Fingerprint.
 
 Parameters:
     browser (Browser): The browser to create the context in
@@ -548,9 +549,9 @@ Parameters:
 
 </details>
 
-#### Undetected-Playwright
+#### Undetected-patchright
 
-[Undetected-Playwright](https://github.com/kaliiiiiiiiii/undetected-playwright-python) is also supported in the `browserforge.injectors.undetected_playwright` package. The usage is the same as the Playwright injector.
+[Undetected-patchright](https://github.com/kaliiiiiiiiii/undetected-patchright-python) is also supported in the `browserforge.injectors.undetected_patchright` package. The usage is the same as the patchright injector.
 
 ### Pyppeteer
 

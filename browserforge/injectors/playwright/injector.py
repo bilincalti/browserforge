@@ -3,9 +3,9 @@ from typing import Dict, Optional
 from browserforge.fingerprints import Fingerprint
 from browserforge.injectors.utils import InjectFunction, _fingerprint, only_injectable_headers
 
-from playwright.async_api import Browser as AsyncBrowser
-from playwright.async_api import BrowserContext as AsyncBrowserContext
-from playwright.sync_api import Browser, BrowserContext
+from patchright.async_api import Browser as AsyncBrowser
+from patchright.async_api import BrowserContext as AsyncBrowserContext
+from patchright.sync_api import Browser, BrowserContext
 
 
 async def AsyncNewContext(
@@ -15,7 +15,7 @@ async def AsyncNewContext(
     **context_options,
 ) -> AsyncBrowserContext:
     """
-    Injects an async_api Playwright context with a Fingerprint.
+    Injects an async_api patchright context with a Fingerprint.
 
     Parameters:
         browser (Browser): The browser to create the context in
@@ -52,7 +52,7 @@ def NewContext(
     **context_options,
 ) -> BrowserContext:
     """
-    Injects a sync_api Playwright context with a Fingerprint.
+    Injects a sync_api patchright context with a Fingerprint.
 
     Parameters:
         browser (Browser): The browser to create the context in
@@ -63,7 +63,8 @@ def NewContext(
     fingerprint = _fingerprint(fingerprint, fingerprint_options)
     function = InjectFunction(fingerprint)
     # Build new context
-    context = browser.new_context(**_context_options(fingerprint, context_options))
+    context = browser.new_context(
+        **_context_options(fingerprint, context_options))
     # Set headers
     context.set_extra_http_headers(
         only_injectable_headers(fingerprint.headers, browser.browser_type.name)

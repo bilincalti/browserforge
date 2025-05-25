@@ -19,7 +19,7 @@ keywords = [
     "http",
     "scraping",
     "requests",
-    "playwright",
+    "patchright",
 ]
 classifiers = [
     "Topic :: Internet :: WWW/HTTP",
